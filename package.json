@@ -2,7 +2,7 @@
   "name": "Airbnb-booking-proxy",
   "version": "1.0.0",
   "description": "> Project description",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,9 +18,13 @@
   },
   "homepage": "https://github.com/hacker-home/Airbnb-booking-proxy#readme",
   "dependencies": {
+    "@newrelic/native-metrics": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
-    "nodemon": "^1.19.1"
+    "new": "^0.1.1",
+    "newrelic": "^6.13.0",
+    "nodemon": "^1.19.1",
+    "relic": "^0.2.0"
   }
 }
