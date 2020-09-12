@@ -1,9 +1,10 @@
+require('newrelic');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const fs = require('fs');
 const { routes } = require('./config.json');
 
 const app = express();
@@ -11,17 +12,26 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(cors());
 
-for (route of routes) {
+app.get('/loaderio*', (req, res) => {
+  fs.readFile(`${__dirname}/../loaderio.txt`, (err, result) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
+for (let route of routes) {
   app.use(route.route,
     proxy({
       target: route.address,
-      pathRewrite: (path, req) => {
-        return path.split('/').slice(2).join('/');
-      }
     })
   );
 }
 
-app.listen(3030, () => {
-  console.log('Proxy listening on port 3030');
+
+app.listen(5000, () => {
+  console.log('Proxy listening on port 5000');
 });
